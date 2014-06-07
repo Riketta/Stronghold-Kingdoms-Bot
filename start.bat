@@ -1,0 +1,1 @@
+StrongholdKingdoms.exe -InstallerVersion 117 ru
