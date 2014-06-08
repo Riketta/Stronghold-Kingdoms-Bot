@@ -44,6 +44,7 @@ namespace BotDLL
             this.textBox_ResCount = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.button_Admin = new System.Windows.Forms.Button();
+            this.checkBox_FreeCard = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // listBox_ResList
@@ -181,11 +182,25 @@ namespace BotDLL
             this.button_Admin.UseVisualStyleBackColor = true;
             this.button_Admin.Click += new System.EventHandler(this.button_Admin_Click);
             // 
+            // checkBox_FreeCard
+            // 
+            this.checkBox_FreeCard.AutoSize = true;
+            this.checkBox_FreeCard.Checked = true;
+            this.checkBox_FreeCard.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox_FreeCard.Location = new System.Drawing.Point(92, 90);
+            this.checkBox_FreeCard.Name = "checkBox_FreeCard";
+            this.checkBox_FreeCard.Size = new System.Drawing.Size(123, 17);
+            this.checkBox_FreeCard.TabIndex = 12;
+            this.checkBox_FreeCard.Text = "AutoLoot Free Cards";
+            this.checkBox_FreeCard.UseVisualStyleBackColor = true;
+            this.checkBox_FreeCard.CheckedChanged += new System.EventHandler(this.checkBox_FreeCard_CheckedChanged);
+            // 
             // BotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 381);
+            this.Controls.Add(this.checkBox_FreeCard);
             this.Controls.Add(this.button_Admin);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox_ResCount);
@@ -223,5 +238,6 @@ namespace BotDLL
         private System.Windows.Forms.TextBox textBox_ResCount;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button_Admin;
+        private System.Windows.Forms.CheckBox checkBox_FreeCard;
     }
 }

@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using System.Threading;
 
 using Kingdoms;
+using Stronghold.AuthClient;
+using CommonTypes;
 using System.CodeDom.Compiler;
 using Microsoft.CSharp;
 using System.Reflection;
@@ -21,6 +23,8 @@ namespace BotDLL
     {
         Thread TradeThread;
         bool IsTrading = false;
+        Thread AutoLootThread;
+        bool IsAutoLoot = true;
 
         public void Log(string Text)
         {
@@ -38,9 +42,11 @@ namespace BotDLL
 
             listBox_ResList.SelectedIndex = 0;
 
-            Log("Запуск потока торговли...");
             TradeThread = new Thread(Trade);
             TradeThread.Start();
+
+            AutoLootThread = new Thread(AutoLoot);
+            AutoLootThread.Start();
         }
 
         private void button_Trade_Click(object sender, EventArgs e)
@@ -70,16 +76,34 @@ namespace BotDLL
             }
         }
 
+        public void AutoLoot()
+        {
+            Log("Поток автолута создан!");
+
+            while (true)
+            {
+                // Если лутаем и время пришло
+                if (IsAutoLoot && GameEngine.Instance.World.FreeCardInfo.timeUntilNextFreeCard().TotalSeconds < 0f)
+                {
+                    // Грязный хак. Новая карта не будет показана пока игра не будет перезапущена - каллбека то нету
+                    XmlRpcCardsProvider.CreateForEndpoint(URLs.ProfileProtocol, URLs.ProfileServerAddressCards, URLs.ProfileServerPort, URLs.ProfileCardPath).getFreeCard(new XmlRpcCardsRequest(RemoteServices.Instance.UserGuid.ToString().Replace("-", "")), null, null);
+                    Log("[" + DateTime.Now + "] Карта полутана! Следующая через " + GameEngine.Instance.World.FreeCardInfo.timeUntilNextFreeCard());
+                }
+
+                Thread.Sleep(60 * 1000); // 60 sec
+            }
+        }
+
         public void Trade()
         {
             Log("Торговый поток создан!");
 
             int Sleep = 0;
-            while (true) // Если торгуем
+            while (true) 
             {
                 Sleep = 60 + new Random().Next(-5, 60);
 
-                if (IsTrading)
+                if (IsTrading) // Если торгуем
                 {
                     Log("[" + DateTime.Now + "] Заход с \"" + listBox_ResList.SelectedItem.ToString() + "\"");
                     // Получаем ID товара из списка
@@ -189,6 +213,13 @@ namespace BotDLL
             }
             catch
             {}
+
+            try
+            {
+                AutoLootThread.Abort();
+            }
+            catch
+            {}
         }
 
         private void button_MapEditing_Click(object sender, EventArgs e) // Only visual
@@ -291,6 +322,16 @@ namespace BotDLL
                 Console.WriteLine(ex);
                 Console.WriteLine("======| ======= |======\n");
             }
+        }
+
+        private void checkBox_FreeCard_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_FreeCard.Checked)
+                IsAutoLoot = true;
+            else
+                IsAutoLoot = false;
+
+            checkBox_FreeCard.Checked = !checkBox_FreeCard.Checked;
         }
     }
 }

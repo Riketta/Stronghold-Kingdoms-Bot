@@ -120,6 +120,9 @@ namespace BotDLL
             //GameEngine.Instance.World.UserResearchData.research_pointCount;
 
             //XmlRpcCardsProvider.CreateForEndpoint(URLs.ProfileProtocol, URLs.ProfileServerAddressCards, URLs.ProfileServerPort, URLs.ProfileCardPath).getFreeCard(new XmlRpcCardsRequest(RemoteServices.Instance.UserGuid.ToString().Replace("-", "")), null, null);
+            GameEngine.Instance.World.FreeCardInfo.timeUntilNextFreeCard().ToString();
+            TimeSpan FullTime = new TimeSpan(168 / GameEngine.Instance.World.FreeCardInfo.freeCardsPerWeek(), 0, 0);
+            Console.WriteLine(FullTime.Subtract(GameEngine.Instance.World.FreeCardInfo.timeUntilNextFreeCard()).TotalMinutes); // Прошло после получения
         }
 
         [DllImport("kernel32.dll", SetLastError = true)]
