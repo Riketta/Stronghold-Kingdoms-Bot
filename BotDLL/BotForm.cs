@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Developed by Riketta https://github.com/Riketta/Stronghold-Kingdoms-Bot
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -112,8 +115,8 @@ namespace BotDLL
                             }
                         }
                     }
-
-                    Log("Повтор цикла торговли через " + Sleep + " секунд в " + DateTime.Now.AddSeconds(Sleep).ToString("HH:mm:ss"));
+                    
+                    Log("Повтор цикла торговли через " + Sleep + " секунд(ы) в " + DateTime.Now.AddSeconds(Sleep).ToString("HH:mm:ss"));
                     Console.WriteLine();
                 }
                 Thread.Sleep(Sleep * 1000); // Спим, чтобы не спамить. Так меньше палева.
@@ -163,6 +166,7 @@ namespace BotDLL
             using System.Text;
 
             using Kingdoms;
+            using CommonTypes;
 
             namespace NSpace {
             public class NClass {

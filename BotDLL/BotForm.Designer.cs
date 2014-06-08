@@ -1,4 +1,7 @@
-﻿namespace BotDLL
+﻿// Developed by Riketta https://github.com/Riketta/Stronghold-Kingdoms-Bot
+
+
+namespace BotDLL
 {
     partial class BotForm
     {

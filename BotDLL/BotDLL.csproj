@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\..\..\..\ProgramData\Firefly Studios\Stronghold Kingdoms\2.0.17.2 Dev\</OutputPath>
+    <OutputPath>..\..\..\..\..\..\..\ProgramData\Firefly Studios\Stronghold Kingdoms\2.0.18.6\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -30,9 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="StrongholdKingdoms, Version=1.1.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\ProgramData\Firefly Studios\Stronghold Kingdoms\Clear_bin\StrongholdKingdoms.exe</HintPath>
+    <Reference Include="CommonTypes">
+      <HintPath>C:\ProgramData\Firefly Studios\Stronghold Kingdoms\2.0.18.6_Clear\CommonTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="StrongholdKingdoms">
+      <HintPath>C:\ProgramData\Firefly Studios\Stronghold Kingdoms\2.0.18.6_Clear\StrongholdKingdoms.exe</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />

@@ -1,4 +1,7 @@
-﻿using System.Reflection;
+﻿// Developed by Riketta https://github.com/Riketta/Stronghold-Kingdoms-Bot
+
+
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 

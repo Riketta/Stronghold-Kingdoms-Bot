@@ -1,17 +1,20 @@
-﻿using System;
+﻿// Developed by Riketta https://github.com/Riketta/Stronghold-Kingdoms-Bot
+
+
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
 using Kingdoms;
+using CommonTypes;
+
 using System.Windows.Forms;
 //using LuaInterface;
 
 /*
  * TODO:
- * Менять селект деревни и качать ее
- * NLua
  * Пулл исследований
  * Пулл построек, шаблоны деревень
  * Автоскаутинг
@@ -107,19 +110,15 @@ namespace BotDLL
 
         private void Dev()
         {
-            try
-            {
-                Console.WriteLine(RemoteServices.Instance.UserID);
-                Console.WriteLine(RemoteServices.Instance.UserName);
+            //RemoteServices.Instance.GetResearchData();
+            //RemoteServices.Instance.BuyResearchPoint();
+            //RemoteServices.Instance.DoResearch(0);
+            //RemoteServices.Instance.SpyGetResearchInfo(0);
 
-                List<int> VillageIDs = GameEngine.Instance.World.getListOfUserVillages();
-                foreach (int VillageID in VillageIDs)
-                    Console.WriteLine(GameEngine.Instance.getVillage(VillageID).calcTotalTradersAtHome());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
+            //GameEngine.Instance.World.addResearchPoints(0);
+            //GameEngine.Instance.World.doResearch(0);
+            //var A = GameEngine.Instance.World.GetResearchDataForVillage(0);
+            //GameEngine.Instance.World.GetResearchDataForCurrentVillage();
         }
 
         [DllImport("kernel32.dll", SetLastError = true)]
