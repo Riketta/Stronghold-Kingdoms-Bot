@@ -45,6 +45,8 @@ namespace BotDLL
             this.label2 = new System.Windows.Forms.Label();
             this.button_Admin = new System.Windows.Forms.Button();
             this.checkBox_FreeCard = new System.Windows.Forms.CheckBox();
+            this.listBox_ResearchList = new System.Windows.Forms.ListBox();
+            this.listBox_Queue = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // listBox_ResList
@@ -111,7 +113,7 @@ namespace BotDLL
             // 
             // button_MapEditing
             // 
-            this.button_MapEditing.Location = new System.Drawing.Point(363, 86);
+            this.button_MapEditing.Location = new System.Drawing.Point(383, 84);
             this.button_MapEditing.Name = "button_MapEditing";
             this.button_MapEditing.Size = new System.Drawing.Size(75, 23);
             this.button_MapEditing.TabIndex = 4;
@@ -123,7 +125,7 @@ namespace BotDLL
             // 
             this.richTextBox_In.Location = new System.Drawing.Point(92, 115);
             this.richTextBox_In.Name = "richTextBox_In";
-            this.richTextBox_In.Size = new System.Drawing.Size(346, 100);
+            this.richTextBox_In.Size = new System.Drawing.Size(366, 100);
             this.richTextBox_In.TabIndex = 5;
             this.richTextBox_In.Text = "";
             // 
@@ -131,7 +133,7 @@ namespace BotDLL
             // 
             this.button_Exec.Location = new System.Drawing.Point(92, 277);
             this.button_Exec.Name = "button_Exec";
-            this.button_Exec.Size = new System.Drawing.Size(346, 26);
+            this.button_Exec.Size = new System.Drawing.Size(366, 26);
             this.button_Exec.TabIndex = 6;
             this.button_Exec.Text = "Выполнить код";
             this.button_Exec.UseVisualStyleBackColor = true;
@@ -142,7 +144,7 @@ namespace BotDLL
             this.richTextBox_Out.Location = new System.Drawing.Point(92, 221);
             this.richTextBox_Out.Name = "richTextBox_Out";
             this.richTextBox_Out.ReadOnly = true;
-            this.richTextBox_Out.Size = new System.Drawing.Size(346, 50);
+            this.richTextBox_Out.Size = new System.Drawing.Size(366, 50);
             this.richTextBox_Out.TabIndex = 7;
             this.richTextBox_Out.Text = "";
             // 
@@ -151,7 +153,7 @@ namespace BotDLL
             this.richTextBox_Log.Location = new System.Drawing.Point(92, 308);
             this.richTextBox_Log.Name = "richTextBox_Log";
             this.richTextBox_Log.ReadOnly = true;
-            this.richTextBox_Log.Size = new System.Drawing.Size(346, 70);
+            this.richTextBox_Log.Size = new System.Drawing.Size(366, 70);
             this.richTextBox_Log.TabIndex = 8;
             this.richTextBox_Log.Text = "";
             // 
@@ -174,7 +176,7 @@ namespace BotDLL
             // 
             // button_Admin
             // 
-            this.button_Admin.Location = new System.Drawing.Point(282, 86);
+            this.button_Admin.Location = new System.Drawing.Point(302, 84);
             this.button_Admin.Name = "button_Admin";
             this.button_Admin.Size = new System.Drawing.Size(75, 23);
             this.button_Admin.TabIndex = 11;
@@ -195,11 +197,121 @@ namespace BotDLL
             this.checkBox_FreeCard.UseVisualStyleBackColor = true;
             this.checkBox_FreeCard.CheckedChanged += new System.EventHandler(this.checkBox_FreeCard_CheckedChanged);
             // 
+            // listBox_ResearchList
+            // 
+            this.listBox_ResearchList.FormattingEnabled = true;
+            this.listBox_ResearchList.Items.AddRange(new object[] {
+            "61 - Animal Husbandry - Животноводство",
+            "33 - Architecture - Архитектура",
+            "17 - Armour Working - Произв. доспехов",
+            "43 - Armoury Capacity - Вмест. оружейной",
+            "59 - Arts - Искусство",
+            "12 - Bakery - Выпечка",
+            "55 - Baptism - Крещение",
+            "15 - Black Smithing - Кузнечное дело",
+            "81 - Bounties - Вознаграждение",
+            "10 - Brewing - Пивоварение",
+            "11 - Butchery - Скотобойня",
+            "79 - CAP_Ballista",
+            "77 - CAP_Tunnellors",
+            "31 - CAP_Turrets",
+            "25 - Captains - Капитаны",
+            "8 - Carpentry - Плотничное дело",
+            "19 - Castellation - Сооружение замков",
+            "26 - Catapult - Катапульты",
+            "83 - Civil Service - Госслужба",
+            "24 - Command - Командование",
+            "35 - Commerce - Коммерция",
+            "51 - Confession - Исповедь",
+            "54 - Confirmation - Миропомазание",
+            "30 - Conscription - Воин. повинность",
+            "20 - Construction - Строительство",
+            "80 - Counter Surveillance - Контрразведка",
+            "82 - Courtiers",
+            "6 - Craftsmanship - Логистика?",
+            "64 - Dairy Farming - Молочное с/х",
+            "21 - Defences - Оборона",
+            "57 - Diplomacy - Дипломатия",
+            "40 - Engineering - Инженерия",
+            "31 - Espionage - Шпионаж",
+            "53 - Eucharist - Евхаристия",
+            "50 - Extreme Unction - Соборование",
+            "65 - Fishing - Рыболовство",
+            "18 - Fletching - Произв. луков",
+            "37 - Foraging - Сбор ресурсов",
+            "86 - Forced March - Марш-бросок",
+            "1 - Forestry - Лесная промышл.",
+            "23 - Fortification - Фортификации",
+            "60 - Gardening",
+            "45 - Granary Capacity - Вмест. амбара",
+            "41 - Hall Capacity - Вмест. общин. дома",
+            "67 - Hops Farming - Хмелеводство",
+            "76 - Horsemanship - Верховая езда",
+            "42 - Housing Capacity - Вмест. хижин",
+            "63 - Hunting - Охота",
+            "44 - Inn Capacity - Вмест. трактира",
+            "79 - Intelligence - Разведка",
+            "2 - Iron Mining - Добыча железа",
+            "58 - Justice - Правосудие",
+            "36 - LandTrade",
+            "74 - Leadership - Лидерство",
+            "47 - Literature - Литература",
+            "29 - Long Bow - Длинный лук",
+            "56 - Marriage - Помолвка",
+            "32 - Mathematics - Математика",
+            "34 - Merchant Guilds - Гильдии торговцев",
+            "9 - Metal Bashing - Произв. посуды",
+            "66 - Orchard Management - Управление садом",
+            "52 - Ordination - Посвящение",
+            "48 - Philosophy - Философия",
+            "62 - Pig Breeding - Свиноводство",
+            "28 - Pike - Пика",
+            "72 - Pilgrimage - Паломничество",
+            "78 - Pillaging - Набег",
+            "3 - Pitch Extraction - Добыча смолы",
+            "68 - Plough - Плуг",
+            "16 - Poleturning - Пикодельня",
+            "85 - Ransacking - Поджог",
+            "84 - Sally Forth - Вылазка",
+            "5 - Salt Working - Добыча соли",
+            "75 - Scouts - Разведчики",
+            "14 - Siege Mechanics - Осадные орудия",
+            "38 - Silk Trade - Торговля шелком",
+            "39 - Spice Trade - Торговля специями",
+            "46 - Stockpile Capacity - Вмест. склада",
+            "0 - Stone Quarrying - Добыча камня",
+            "77 - Surveillance - Разведка",
+            "27 - Sword - Меч",
+            "73 - Tactics - Тактики",
+            "7 - Tailoring - Портняжное дело",
+            "49 - Theology - Богословие",
+            "4 - Tools - Инструменты",
+            "22 - Vaults - Подвалы",
+            "71 - Vegetable Cropping - Сбор овощей",
+            "13 - Weapon Making - Произв. оружия",
+            "70 - Wheat Production - Произв. пшеницы",
+            "69 - Wine Production - Произв. вина"});
+            this.listBox_ResearchList.Location = new System.Drawing.Point(469, 1);
+            this.listBox_ResearchList.Name = "listBox_ResearchList";
+            this.listBox_ResearchList.Size = new System.Drawing.Size(235, 303);
+            this.listBox_ResearchList.TabIndex = 13;
+            this.listBox_ResearchList.SelectedIndexChanged += new System.EventHandler(this.listBox_ResearchList_SelectedIndexChanged);
+            // 
+            // listBox_Queue
+            // 
+            this.listBox_Queue.FormattingEnabled = true;
+            this.listBox_Queue.Location = new System.Drawing.Point(469, 308);
+            this.listBox_Queue.Name = "listBox_Queue";
+            this.listBox_Queue.Size = new System.Drawing.Size(235, 69);
+            this.listBox_Queue.TabIndex = 14;
+            // 
             // BotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 381);
+            this.ClientSize = new System.Drawing.Size(704, 381);
+            this.Controls.Add(this.listBox_Queue);
+            this.Controls.Add(this.listBox_ResearchList);
             this.Controls.Add(this.checkBox_FreeCard);
             this.Controls.Add(this.button_Admin);
             this.Controls.Add(this.label2);
@@ -239,5 +351,7 @@ namespace BotDLL
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button_Admin;
         private System.Windows.Forms.CheckBox checkBox_FreeCard;
+        private System.Windows.Forms.ListBox listBox_ResearchList;
+        private System.Windows.Forms.ListBox listBox_Queue;
     }
 }

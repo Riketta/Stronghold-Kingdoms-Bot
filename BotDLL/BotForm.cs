@@ -37,7 +37,7 @@ namespace BotDLL
 
             try
             {
-                using (StreamWriter Writer = new StreamWriter(BotStartTime + ".log", true))
+                using (StreamWriter Writer = new StreamWriter(@".\logs\" + BotStartTime + ".log", true))
                     Writer.WriteLine(Text);
             }
             catch (Exception ex)
@@ -58,6 +58,7 @@ namespace BotDLL
             Log("Форма бота отображена.");
 
             listBox_ResList.SelectedIndex = 0;
+            listBox_ResearchList.SelectedIndex = 0;
 
             TradeThread = new Thread(Trade);
             TradeThread.Start();
@@ -124,7 +125,7 @@ namespace BotDLL
                 {
                     Log("Заход с \"" + listBox_ResList.SelectedItem.ToString() + "\"");
                     // Получаем ID товара из списка
-                    int ResID = GetResID(listBox_ResList.SelectedItem.ToString());
+                    int ResID = GetItemID(listBox_ResList.SelectedItem.ToString());
                     int TargetID = int.Parse(textBox_TradeTargetID.Text); // Получаем ID деревни-цели
                     List<int> VillageIDs = GameEngine.Instance.World.getListOfUserVillages(); // Получаем список наших деревень
 
@@ -166,7 +167,7 @@ namespace BotDLL
 
         private void listBox_ResList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int ResID = GetResID(listBox_ResList.SelectedItem.ToString());
+            int ResID = GetItemID(listBox_ResList.SelectedItem.ToString());
 
             switch (ResID)
             {
@@ -217,7 +218,7 @@ namespace BotDLL
             }
         }
 
-        private int GetResID(string Item)
+        private int GetItemID(string Item)
         {
             return int.Parse(Item.Replace(" ", "").Split('-')[0]);
         }
@@ -349,6 +350,11 @@ namespace BotDLL
                 IsAutoLoot = false;
 
             checkBox_FreeCard.Checked = !checkBox_FreeCard.Checked;
+        }
+
+        private void listBox_ResearchList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
