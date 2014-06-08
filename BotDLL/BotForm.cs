@@ -123,6 +123,11 @@ namespace BotDLL
             }
         }
 
+        private void listBox_ResList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void BotForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             try
@@ -156,6 +161,7 @@ namespace BotDLL
             loParameters.ReferencedAssemblies.Add("System.dll");
             loParameters.ReferencedAssemblies.Add("System.Data.dll");
             loParameters.ReferencedAssemblies.Add("System.Windows.Forms.dll");
+            loParameters.ReferencedAssemblies.Add("CommonTypes.dll");
             loParameters.ReferencedAssemblies.Add("StrongholdKingdoms.exe");
 
             // *** Must create a fully functional assembly as a string

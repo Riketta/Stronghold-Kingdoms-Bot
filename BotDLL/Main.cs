@@ -119,6 +119,7 @@ namespace BotDLL
             //GameEngine.Instance.World.doResearch(0);
             //var A = GameEngine.Instance.World.GetResearchDataForVillage(0);
             //GameEngine.Instance.World.GetResearchDataForCurrentVillage();
+            //GameEngine.Instance.World.UserResearchData.research_pointCount;
         }
 
         [DllImport("kernel32.dll", SetLastError = true)]

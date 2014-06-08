@@ -77,6 +77,7 @@ namespace BotDLL
             this.listBox_ResList.Name = "listBox_ResList";
             this.listBox_ResList.Size = new System.Drawing.Size(120, 381);
             this.listBox_ResList.TabIndex = 0;
+            this.listBox_ResList.SelectedIndexChanged += new System.EventHandler(this.listBox_ResList_SelectedIndexChanged);
             // 
             // textBox_TradeTargetID
             // 
