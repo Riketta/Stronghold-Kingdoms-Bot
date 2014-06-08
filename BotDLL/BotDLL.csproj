@@ -33,6 +33,10 @@
     <Reference Include="CommonTypes">
       <HintPath>C:\ProgramData\Firefly Studios\Stronghold Kingdoms\2.0.18.6_Clear\CommonTypes.dll</HintPath>
     </Reference>
+    <Reference Include="Stronghold.WebService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\ProgramData\Firefly Studios\Stronghold Kingdoms\2.0.18.6_Clear\Stronghold.WebService.dll</HintPath>
+    </Reference>
     <Reference Include="StrongholdKingdoms">
       <HintPath>C:\ProgramData\Firefly Studios\Stronghold Kingdoms\2.0.18.6_Clear\StrongholdKingdoms.exe</HintPath>
       <Private>False</Private>

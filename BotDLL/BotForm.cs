@@ -170,7 +170,8 @@ namespace BotDLL
                 case 28:
                 case 29:
                 case 30:
-                case 31: textBox_ResCount.Text = "5";
+                case 31:
+                case 32: textBox_ResCount.Text = "5"; // 32 may be not valid
                     break;
             }
         }
@@ -190,10 +191,16 @@ namespace BotDLL
             {}
         }
 
-        private void button_MapEditing_Click(object sender, EventArgs e)
+        private void button_MapEditing_Click(object sender, EventArgs e) // Only visual
         {
             button_MapEditing.Text = (!GameEngine.Instance.World.MapEditing).ToString();
             GameEngine.Instance.World.MapEditing = !GameEngine.Instance.World.MapEditing;
+        }
+
+        private void button_Admin_Click(object sender, EventArgs e) // Only visual
+        {
+            button_MapEditing.Text = (!RemoteServices.Instance.Admin).ToString();
+            RemoteServices.Instance.Admin = !RemoteServices.Instance.Admin;
         }
 
         private void button_Exec_Click(object sender, EventArgs e)
@@ -214,6 +221,7 @@ namespace BotDLL
             loParameters.ReferencedAssemblies.Add("System.Data.dll");
             loParameters.ReferencedAssemblies.Add("System.Windows.Forms.dll");
             loParameters.ReferencedAssemblies.Add("CommonTypes.dll");
+            loParameters.ReferencedAssemblies.Add("Stronghold.WebService.dll");
             loParameters.ReferencedAssemblies.Add("StrongholdKingdoms.exe");
 
             // *** Must create a fully functional assembly as a string
@@ -225,6 +233,7 @@ namespace BotDLL
 
             using Kingdoms;
             using CommonTypes;
+            using Stronghold.AuthClient;
 
             namespace NSpace {
             public class NClass {

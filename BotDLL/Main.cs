@@ -9,6 +9,7 @@ using System.Threading;
 
 using Kingdoms;
 using CommonTypes;
+using Stronghold.AuthClient;
 
 using System.Windows.Forms;
 //using LuaInterface;
@@ -117,6 +118,8 @@ namespace BotDLL
             //var A = GameEngine.Instance.World.GetResearchDataForVillage(0);
             //GameEngine.Instance.World.GetResearchDataForCurrentVillage();
             //GameEngine.Instance.World.UserResearchData.research_pointCount;
+
+            //XmlRpcCardsProvider.CreateForEndpoint(URLs.ProfileProtocol, URLs.ProfileServerAddressCards, URLs.ProfileServerPort, URLs.ProfileCardPath).getFreeCard(new XmlRpcCardsRequest(RemoteServices.Instance.UserGuid.ToString().Replace("-", "")), null, null);
         }
 
         [DllImport("kernel32.dll", SetLastError = true)]

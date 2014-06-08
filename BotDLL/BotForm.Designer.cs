@@ -42,6 +42,8 @@ namespace BotDLL
             this.richTextBox_Out = new System.Windows.Forms.RichTextBox();
             this.richTextBox_Log = new System.Windows.Forms.RichTextBox();
             this.textBox_ResCount = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.button_Admin = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox_ResList
@@ -75,13 +77,13 @@ namespace BotDLL
             "33 - Wine"});
             this.listBox_ResList.Location = new System.Drawing.Point(0, 0);
             this.listBox_ResList.Name = "listBox_ResList";
-            this.listBox_ResList.Size = new System.Drawing.Size(120, 381);
+            this.listBox_ResList.Size = new System.Drawing.Size(86, 381);
             this.listBox_ResList.TabIndex = 0;
             this.listBox_ResList.SelectedIndexChanged += new System.EventHandler(this.listBox_ResList_SelectedIndexChanged);
             // 
             // textBox_TradeTargetID
             // 
-            this.textBox_TradeTargetID.Location = new System.Drawing.Point(180, 12);
+            this.textBox_TradeTargetID.Location = new System.Drawing.Point(140, 6);
             this.textBox_TradeTargetID.Name = "textBox_TradeTargetID";
             this.textBox_TradeTargetID.Size = new System.Drawing.Size(58, 20);
             this.textBox_TradeTargetID.TabIndex = 1;
@@ -90,7 +92,7 @@ namespace BotDLL
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(126, 15);
+            this.label1.Location = new System.Drawing.Point(92, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(48, 13);
             this.label1.TabIndex = 2;
@@ -98,7 +100,7 @@ namespace BotDLL
             // 
             // button_Trade
             // 
-            this.button_Trade.Location = new System.Drawing.Point(316, 10);
+            this.button_Trade.Location = new System.Drawing.Point(383, 4);
             this.button_Trade.Name = "button_Trade";
             this.button_Trade.Size = new System.Drawing.Size(75, 23);
             this.button_Trade.TabIndex = 3;
@@ -108,7 +110,7 @@ namespace BotDLL
             // 
             // button_MapEditing
             // 
-            this.button_MapEditing.Location = new System.Drawing.Point(397, 10);
+            this.button_MapEditing.Location = new System.Drawing.Point(363, 86);
             this.button_MapEditing.Name = "button_MapEditing";
             this.button_MapEditing.Size = new System.Drawing.Size(75, 23);
             this.button_MapEditing.TabIndex = 4;
@@ -118,15 +120,15 @@ namespace BotDLL
             // 
             // richTextBox_In
             // 
-            this.richTextBox_In.Location = new System.Drawing.Point(129, 39);
+            this.richTextBox_In.Location = new System.Drawing.Point(92, 115);
             this.richTextBox_In.Name = "richTextBox_In";
-            this.richTextBox_In.Size = new System.Drawing.Size(346, 107);
+            this.richTextBox_In.Size = new System.Drawing.Size(346, 100);
             this.richTextBox_In.TabIndex = 5;
             this.richTextBox_In.Text = "";
             // 
             // button_Exec
             // 
-            this.button_Exec.Location = new System.Drawing.Point(129, 265);
+            this.button_Exec.Location = new System.Drawing.Point(92, 277);
             this.button_Exec.Name = "button_Exec";
             this.button_Exec.Size = new System.Drawing.Size(346, 26);
             this.button_Exec.TabIndex = 6;
@@ -136,35 +138,56 @@ namespace BotDLL
             // 
             // richTextBox_Out
             // 
-            this.richTextBox_Out.Location = new System.Drawing.Point(129, 152);
+            this.richTextBox_Out.Location = new System.Drawing.Point(92, 221);
             this.richTextBox_Out.Name = "richTextBox_Out";
             this.richTextBox_Out.ReadOnly = true;
-            this.richTextBox_Out.Size = new System.Drawing.Size(346, 107);
+            this.richTextBox_Out.Size = new System.Drawing.Size(346, 50);
             this.richTextBox_Out.TabIndex = 7;
             this.richTextBox_Out.Text = "";
             // 
             // richTextBox_Log
             // 
-            this.richTextBox_Log.Location = new System.Drawing.Point(126, 297);
+            this.richTextBox_Log.Location = new System.Drawing.Point(92, 308);
             this.richTextBox_Log.Name = "richTextBox_Log";
             this.richTextBox_Log.ReadOnly = true;
-            this.richTextBox_Log.Size = new System.Drawing.Size(346, 76);
+            this.richTextBox_Log.Size = new System.Drawing.Size(346, 70);
             this.richTextBox_Log.TabIndex = 8;
             this.richTextBox_Log.Text = "";
             // 
             // textBox_ResCount
             // 
-            this.textBox_ResCount.Location = new System.Drawing.Point(242, 12);
+            this.textBox_ResCount.Location = new System.Drawing.Point(309, 6);
             this.textBox_ResCount.Name = "textBox_ResCount";
             this.textBox_ResCount.Size = new System.Drawing.Size(68, 20);
             this.textBox_ResCount.TabIndex = 9;
             this.textBox_ResCount.Text = "1000";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(200, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(109, 13);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Кол-во на трейдера:";
+            // 
+            // button_Admin
+            // 
+            this.button_Admin.Location = new System.Drawing.Point(282, 86);
+            this.button_Admin.Name = "button_Admin";
+            this.button_Admin.Size = new System.Drawing.Size(75, 23);
+            this.button_Admin.TabIndex = 11;
+            this.button_Admin.Text = "Admin";
+            this.button_Admin.UseVisualStyleBackColor = true;
+            this.button_Admin.Click += new System.EventHandler(this.button_Admin_Click);
             // 
             // BotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 381);
+            this.Controls.Add(this.button_Admin);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox_ResCount);
             this.Controls.Add(this.richTextBox_Log);
             this.Controls.Add(this.richTextBox_Out);
@@ -198,5 +221,7 @@ namespace BotDLL
         private System.Windows.Forms.RichTextBox richTextBox_Out;
         private System.Windows.Forms.RichTextBox richTextBox_Log;
         private System.Windows.Forms.TextBox textBox_ResCount;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button_Admin;
     }
 }
