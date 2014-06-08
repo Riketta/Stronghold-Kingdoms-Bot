@@ -45,12 +45,9 @@ namespace BotDLL
             Console.WriteLine("Инжект выполнен!");
 
             while (!GameEngine.Instance.World.isDownloadComplete())
-            {
-                Console.WriteLine("Мир еще не загружен!");
-                Thread.Sleep(5000); // 5 sec
-                Console.Clear();
-            }
+                Thread.Sleep(1500); // 1.5 sec
 
+            Console.WriteLine();
             Console.WriteLine("Мир загружен! Начало выполнения операций ядра.");
             Console.WriteLine("\n======| DEBUG INFO |======");
             Console.WriteLine(RemoteServices.Instance.UserID);
