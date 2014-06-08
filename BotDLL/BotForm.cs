@@ -16,6 +16,7 @@ using CommonTypes;
 using System.CodeDom.Compiler;
 using Microsoft.CSharp;
 using System.Reflection;
+using System.IO;
 
 namespace BotDLL
 {
@@ -23,13 +24,28 @@ namespace BotDLL
     {
         Thread TradeThread;
         bool IsTrading = false;
+
         Thread AutoLootThread;
         bool IsAutoLoot = true;
 
+        string BotStartTime = "";
         public void Log(string Text)
         {
+            Text = "[" + DateTime.Now + "] " + Text;
             Console.WriteLine(Text);
             richTextBox_Log.Text = Text + "\r\n" + richTextBox_Log.Text;
+
+            try
+            {
+                using (StreamWriter Writer = new StreamWriter(BotStartTime + ".log", true))
+                    Writer.WriteLine(Text);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("\n======| EX INFO |======");
+                Console.WriteLine(ex);
+                Console.WriteLine("======| ======= |======\n");
+            }
         }
 
         public BotForm()
@@ -38,6 +54,7 @@ namespace BotDLL
 
             InitializeComponent();
             this.Show();
+            BotStartTime = DateTime.Now.ToString().Replace(':', '-');
             Log("Форма бота отображена.");
 
             listBox_ResList.SelectedIndex = 0;
@@ -87,7 +104,7 @@ namespace BotDLL
                 {
                     // Грязный хак. Новая карта не будет показана пока игра не будет перезапущена - каллбека то нету
                     XmlRpcCardsProvider.CreateForEndpoint(URLs.ProfileProtocol, URLs.ProfileServerAddressCards, URLs.ProfileServerPort, URLs.ProfileCardPath).getFreeCard(new XmlRpcCardsRequest(RemoteServices.Instance.UserGuid.ToString().Replace("-", "")), null, null);
-                    Log("[" + DateTime.Now + "] Карта полутана! Следующая через " + GameEngine.Instance.World.FreeCardInfo.timeUntilNextFreeCard());
+                    Log("Карта полутана! Следующая через " + GameEngine.Instance.World.FreeCardInfo.timeUntilNextFreeCard());
                 }
 
                 Thread.Sleep(60 * 1000); // 60 sec
@@ -105,7 +122,7 @@ namespace BotDLL
 
                 if (IsTrading) // Если торгуем
                 {
-                    Log("[" + DateTime.Now + "] Заход с \"" + listBox_ResList.SelectedItem.ToString() + "\"");
+                    Log("Заход с \"" + listBox_ResList.SelectedItem.ToString() + "\"");
                     // Получаем ID товара из списка
                     int ResID = GetResID(listBox_ResList.SelectedItem.ToString());
                     int TargetID = int.Parse(textBox_TradeTargetID.Text); // Получаем ID деревни-цели
