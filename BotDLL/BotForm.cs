@@ -199,7 +199,7 @@ namespace BotDLL
 
         private void button_Admin_Click(object sender, EventArgs e) // Only visual
         {
-            button_MapEditing.Text = (!RemoteServices.Instance.Admin).ToString();
+            button_Admin.Text = (!RemoteServices.Instance.Admin).ToString();
             RemoteServices.Instance.Admin = !RemoteServices.Instance.Admin;
         }
 
