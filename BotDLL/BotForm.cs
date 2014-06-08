@@ -83,7 +83,7 @@ namespace BotDLL
                 {
                     Log("[" + DateTime.Now + "] Заход с \"" + listBox_ResList.SelectedItem.ToString() + "\"");
                     // Получаем ID товара из списка
-                    int ResID = int.Parse(listBox_ResList.SelectedItem.ToString().Replace(" ", "").Split('-')[0]);
+                    int ResID = GetResID(listBox_ResList.SelectedItem.ToString());
                     int TargetID = int.Parse(textBox_TradeTargetID.Text); // Получаем ID деревни-цели
                     List<int> VillageIDs = GameEngine.Instance.World.getListOfUserVillages(); // Получаем список наших деревень
 
@@ -125,7 +125,59 @@ namespace BotDLL
 
         private void listBox_ResList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int ResID = GetResID(listBox_ResList.SelectedItem.ToString());
 
+            switch (ResID)
+            {
+                // Wood and Stone
+                case 6:
+                case 7: textBox_ResCount.Text = "1000";
+                    break;
+
+                // Iron and Pitch
+                case 8:
+                case 9: textBox_ResCount.Text = "200";
+                    break;
+
+                // Ale
+                case 12: textBox_ResCount.Text = "124";
+                    break;
+
+                // Food
+                case 13:
+                case 14:
+                case 15:
+                case 16:
+                case 17:
+                case 18: textBox_ResCount.Text = "500";
+                    break;
+
+                // Metalware, Clothes, Furniture, Venison
+                case 19:
+                case 21:
+                case 22:
+                case 26: textBox_ResCount.Text = "50";
+                    break;
+
+                // Salt, Salt (Not Silk?), Species, Wine
+                case 23:
+                case 24:
+                case 25:
+                case 33: textBox_ResCount.Text = "20";
+                    break;
+
+                // Weapons
+                case 28:
+                case 29:
+                case 30:
+                case 31: textBox_ResCount.Text = "5";
+                    break;
+            }
+        }
+
+        private int GetResID(string Item)
+        {
+            return int.Parse(Item.Replace(" ", "").Split('-')[0]);
         }
 
         private void BotForm_FormClosing(object sender, FormClosingEventArgs e)
