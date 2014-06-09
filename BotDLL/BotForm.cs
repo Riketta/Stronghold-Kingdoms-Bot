@@ -29,6 +29,9 @@ namespace BotDLL
         bool IsAutoLoot = true;
 
         string BotStartTime = "";
+
+        Object Lock = new object();
+
         public void Log(string Text)
         {
             Text = "[" + DateTime.Now + "] " + Text;
@@ -40,6 +43,7 @@ namespace BotDLL
                 if (!Directory.Exists("logs"))
                     Directory.CreateDirectory("logs");
 
+                lock (Lock)
                 using (StreamWriter Writer = new StreamWriter(@".\logs\" + BotStartTime + ".log", true))
                     Writer.WriteLine(Text);
             }
