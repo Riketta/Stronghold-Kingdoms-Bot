@@ -107,15 +107,25 @@ namespace BotDLL
 
             while (true)
             {
-                // Если лутаем и время пришло
-                if (IsAutoLoot && GameEngine.Instance.World.FreeCardInfo.timeUntilNextFreeCard().TotalSeconds < 0f)
+                try
                 {
-                    // Грязный хак. Новая карта не будет показана пока игра не будет перезапущена - каллбека то нету
-                    XmlRpcCardsProvider.CreateForEndpoint(URLs.ProfileProtocol, URLs.ProfileServerAddressCards, URLs.ProfileServerPort, URLs.ProfileCardPath).getFreeCard(new XmlRpcCardsRequest(RemoteServices.Instance.UserGuid.ToString().Replace("-", "")), null, null);
-                    Log("Карта полутана! Следующая через " + GameEngine.Instance.World.FreeCardInfo.timeUntilNextFreeCard());
-                }
+                    // Если лутаем и время пришло
+                    if (GameEngine.Instance.World.isDownloadComplete() && IsAutoLoot && GameEngine.Instance.World.FreeCardInfo.timeUntilNextFreeCard().TotalSeconds <= 0)
+                    {
+                        // Грязный хак. Новая карта не будет показана пока игра не будет перезапущена - каллбека то нету
+                        XmlRpcCardsProvider.CreateForEndpoint(URLs.ProfileProtocol, URLs.ProfileServerAddressCards, URLs.ProfileServerPort, URLs.ProfileCardPath).getFreeCard(new XmlRpcCardsRequest(RemoteServices.Instance.UserGuid.ToString().Replace("-", "")), null, null);
+                        // Wrong next time cause info about it not loaded
+                        Log("Карта полутана! Следующая через " + GameEngine.Instance.World.FreeCardInfo.timeUntilNextFreeCard());
+                    }
 
-                Thread.Sleep(60 * 1000); // 60 sec
+                    Thread.Sleep(60 * 1000); // 60 sec
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("\n======| EX INFO |======");
+                    Console.WriteLine(ex);
+                    Console.WriteLine("======| ======= |======\n");
+                }
             }
         }
 
@@ -126,49 +136,58 @@ namespace BotDLL
             int Sleep = 0;
             while (true) 
             {
-                Sleep = 60 + new Random().Next(-5, 60);
-
-                if (IsTrading) // Если торгуем
+                try
                 {
-                    Log("Заход с \"" + listBox_ResList.SelectedItem.ToString() + "\"");
-                    // Получаем ID товара из списка
-                    int ResID = GetItemID(listBox_ResList.SelectedItem.ToString());
-                    int TargetID = int.Parse(textBox_TradeTargetID.Text); // Получаем ID деревни-цели
-                    List<int> VillageIDs = GameEngine.Instance.World.getListOfUserVillages(); // Получаем список наших деревень
+                    Sleep = 60 + new Random().Next(-5, 60);
 
-                    foreach (int VillageID in VillageIDs) // Перебираем их
+                    if (IsTrading) // Если торгуем
                     {
-                        // Если деревня прогружена (открывалась ее карта в текущей сессии хоть раз)
-                        if (GameEngine.Instance.getVillage(VillageID) != null)
+                        Log("Заход с \"" + listBox_ResList.SelectedItem.ToString() + "\"");
+                        // Получаем ID товара из списка
+                        int ResID = GetItemID(listBox_ResList.SelectedItem.ToString());
+                        int TargetID = int.Parse(textBox_TradeTargetID.Text); // Получаем ID деревни-цели
+                        List<int> VillageIDs = GameEngine.Instance.World.getListOfUserVillages(); // Получаем список наших деревень
+
+                        foreach (int VillageID in VillageIDs) // Перебираем их
                         {
-                            // Получаем базовую информацию о нашей деревни
-                            WorldMap.VillageData Village = GameEngine.Instance.World.getVillageData(VillageID);
-                            VillageMap Map = GameEngine.Instance.getVillage(VillageID); // Получаем полную информацию
-                            int ResAmount = (int)Map.getResourceLevel(ResID); // Кол-во ресурса на складе
-                            int MerchantsCount = Map.calcTotalTradersAtHome(); // Кол-во торговцев в ней
-                            Log("В деревне " + VillageID + " есть " + MerchantsCount + " торговцев"); // Дебаг
-
-                            int SendWithOne = int.Parse(textBox_ResCount.Text); // Кол-во ресурса на торговца
-                            int MaxAmount = MerchantsCount * SendWithOne; // Кол-во ресурсов отправим
-                            if (ResAmount < MaxAmount) // Если торговцы могут увезти больше чем есть
-                                MerchantsCount = (int)(ResAmount / SendWithOne); // Считаем сколько смогут увезти реально
-
-                            if (MerchantsCount > 0) // Если трейдеры дома есть
+                            // Если деревня прогружена (открывалась ее карта в текущей сессии хоть раз)
+                            if (GameEngine.Instance.getVillage(VillageID) != null)
                             {
-                                TargetID = GameEngine.Instance.World.getRegionCapitalVillage(Village.regionID); // Торгуем с регионом, временно
-                                textBox_TradeTargetID.Text = TargetID.ToString();
+                                // Получаем базовую информацию о нашей деревни
+                                WorldMap.VillageData Village = GameEngine.Instance.World.getVillageData(VillageID);
+                                VillageMap Map = GameEngine.Instance.getVillage(VillageID); // Получаем полную информацию
+                                int ResAmount = (int)Map.getResourceLevel(ResID); // Кол-во ресурса на складе
+                                int MerchantsCount = Map.calcTotalTradersAtHome(); // Кол-во торговцев в ней
+                                Log("В деревне " + VillageID + " есть " + MerchantsCount + " торговцев"); // Дебаг
 
-                                // Вызываем высокоуровневую функцию торговли с рядом каллбеков
-                                GameEngine.Instance.getVillage(VillageID).stockExchangeTrade(TargetID, ResID, MerchantsCount * SendWithOne, false);
-                                AllVillagesPanel.travellersChanged(); // Подтверждаем изменения (ушли трейдеры) в GUI-клиента
+                                int SendWithOne = int.Parse(textBox_ResCount.Text); // Кол-во ресурса на торговца
+                                int MaxAmount = MerchantsCount * SendWithOne; // Кол-во ресурсов отправим
+                                if (ResAmount < MaxAmount) // Если торговцы могут увезти больше чем есть
+                                    MerchantsCount = (int)(ResAmount / SendWithOne); // Считаем сколько смогут увезти реально
+
+                                if (MerchantsCount > 0) // Если трейдеры дома есть
+                                {
+                                    TargetID = GameEngine.Instance.World.getRegionCapitalVillage(Village.regionID); // Торгуем с регионом, временно
+                                    textBox_TradeTargetID.Text = TargetID.ToString();
+
+                                    // Вызываем высокоуровневую функцию торговли с рядом каллбеков
+                                    GameEngine.Instance.getVillage(VillageID).stockExchangeTrade(TargetID, ResID, MerchantsCount * SendWithOne, false);
+                                    AllVillagesPanel.travellersChanged(); // Подтверждаем изменения (ушли трейдеры) в GUI-клиента
+                                }
                             }
                         }
+
+                        Log("Повтор цикла торговли через " + Sleep + " секунд(ы) в " + DateTime.Now.AddSeconds(Sleep).ToString("HH:mm:ss"));
+                        Console.WriteLine();
                     }
-                    
-                    Log("Повтор цикла торговли через " + Sleep + " секунд(ы) в " + DateTime.Now.AddSeconds(Sleep).ToString("HH:mm:ss"));
-                    Console.WriteLine();
+                    Thread.Sleep(Sleep * 1000); // Спим, чтобы не спамить. Так меньше палева.
                 }
-                Thread.Sleep(Sleep * 1000); // Спим, чтобы не спамить. Так меньше палева.
+                catch (Exception ex)
+                {
+                    Console.WriteLine("\n======| EX INFO |======");
+                    Console.WriteLine(ex);
+                    Console.WriteLine("======| ======= |======\n");
+                }
             }
         }
 
@@ -349,19 +368,32 @@ namespace BotDLL
             }
         }
 
-        private void checkBox_FreeCard_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox_FreeCard.Checked)
-                IsAutoLoot = true;
-            else
-                IsAutoLoot = false;
-
-            checkBox_FreeCard.Checked = !checkBox_FreeCard.Checked;
-        }
-
         private void listBox_ResearchList_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button_FreeCardAutoLoot_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (IsAutoLoot)
+                {
+                    IsAutoLoot = false;
+                    button_FreeCardAutoLoot.Text = "AutoLoot Disabled";
+                }
+                else
+                {
+                    IsAutoLoot = true;
+                    button_FreeCardAutoLoot.Text = "AutoLoot Enabled";
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("\n======| EX INFO |======");
+                Console.WriteLine(ex);
+                Console.WriteLine("======| ======= |======\n");
+            }
         }
     }
 }

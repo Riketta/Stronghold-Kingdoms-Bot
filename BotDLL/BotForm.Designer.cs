@@ -44,9 +44,9 @@ namespace BotDLL
             this.textBox_ResCount = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.button_Admin = new System.Windows.Forms.Button();
-            this.checkBox_FreeCard = new System.Windows.Forms.CheckBox();
             this.listBox_ResearchList = new System.Windows.Forms.ListBox();
             this.listBox_Queue = new System.Windows.Forms.ListBox();
+            this.button_FreeCardAutoLoot = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox_ResList
@@ -184,19 +184,6 @@ namespace BotDLL
             this.button_Admin.UseVisualStyleBackColor = true;
             this.button_Admin.Click += new System.EventHandler(this.button_Admin_Click);
             // 
-            // checkBox_FreeCard
-            // 
-            this.checkBox_FreeCard.AutoSize = true;
-            this.checkBox_FreeCard.Checked = true;
-            this.checkBox_FreeCard.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox_FreeCard.Location = new System.Drawing.Point(92, 90);
-            this.checkBox_FreeCard.Name = "checkBox_FreeCard";
-            this.checkBox_FreeCard.Size = new System.Drawing.Size(123, 17);
-            this.checkBox_FreeCard.TabIndex = 12;
-            this.checkBox_FreeCard.Text = "AutoLoot Free Cards";
-            this.checkBox_FreeCard.UseVisualStyleBackColor = true;
-            this.checkBox_FreeCard.CheckedChanged += new System.EventHandler(this.checkBox_FreeCard_CheckedChanged);
-            // 
             // listBox_ResearchList
             // 
             this.listBox_ResearchList.FormattingEnabled = true;
@@ -305,14 +292,24 @@ namespace BotDLL
             this.listBox_Queue.Size = new System.Drawing.Size(235, 69);
             this.listBox_Queue.TabIndex = 14;
             // 
+            // button_FreeCardAutoLoot
+            // 
+            this.button_FreeCardAutoLoot.Location = new System.Drawing.Point(92, 84);
+            this.button_FreeCardAutoLoot.Name = "button_FreeCardAutoLoot";
+            this.button_FreeCardAutoLoot.Size = new System.Drawing.Size(118, 23);
+            this.button_FreeCardAutoLoot.TabIndex = 15;
+            this.button_FreeCardAutoLoot.Text = "AutoLoot Enabled";
+            this.button_FreeCardAutoLoot.UseVisualStyleBackColor = true;
+            this.button_FreeCardAutoLoot.Click += new System.EventHandler(this.button_FreeCardAutoLoot_Click);
+            // 
             // BotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(704, 381);
+            this.Controls.Add(this.button_FreeCardAutoLoot);
             this.Controls.Add(this.listBox_Queue);
             this.Controls.Add(this.listBox_ResearchList);
-            this.Controls.Add(this.checkBox_FreeCard);
             this.Controls.Add(this.button_Admin);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox_ResCount);
@@ -350,8 +347,8 @@ namespace BotDLL
         private System.Windows.Forms.TextBox textBox_ResCount;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button_Admin;
-        private System.Windows.Forms.CheckBox checkBox_FreeCard;
         private System.Windows.Forms.ListBox listBox_ResearchList;
         private System.Windows.Forms.ListBox listBox_Queue;
+        private System.Windows.Forms.Button button_FreeCardAutoLoot;
     }
 }
