@@ -37,6 +37,9 @@ namespace BotDLL
 
             try
             {
+                if (!Directory.Exists("logs"))
+                    Directory.CreateDirectory("logs");
+
                 using (StreamWriter Writer = new StreamWriter(@".\logs\" + BotStartTime + ".log", true))
                     Writer.WriteLine(Text);
             }
