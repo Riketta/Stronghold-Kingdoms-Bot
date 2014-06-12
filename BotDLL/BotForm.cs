@@ -22,11 +22,15 @@ namespace BotDLL
 {
     public partial class BotForm : Form
     {
+        string[] Researches;
+
         Thread TradeThread;
         bool IsTrading = false;
 
         Thread AutoLootThread;
         bool IsAutoLoot = true;
+
+        Thread ResearchThread;
 
         string BotStartTime = "";
 
@@ -65,13 +69,17 @@ namespace BotDLL
             Log("Форма бота отображена.");
 
             listBox_ResList.SelectedIndex = 0;
-            listBox_ResearchList.SelectedIndex = 0;
+            //listBox_ResearchList.SelectedIndex = 0;
 
             TradeThread = new Thread(Trade);
             TradeThread.Start();
 
             AutoLootThread = new Thread(AutoLoot);
             AutoLootThread.Start();
+
+            ResearchInit();
+            ResearchThread = new Thread(Research);
+            ResearchThread.Start();
         }
 
         private void button_Trade_Click(object sender, EventArgs e)
@@ -101,6 +109,51 @@ namespace BotDLL
             }
         }
 
+        public void Research()
+        {
+            while (true)
+            {
+                try
+                {
+                    if (GameEngine.Instance.World.isDownloadComplete() && listBox_Queue.Items.Count > 0)
+                    {
+                        if (GameEngine.Instance.World.userResearchData.research_points > 0)
+                        {
+                            TimeSpan Span = DateTime.Now.Subtract(GameEngine.Instance.World.userResearchData.research_completionTime);
+                            Console.WriteLine(Span.TotalSeconds);
+
+                            try
+                            {
+                                GameEngine.Instance.World.doResearch(GetItemID(listBox_Queue.SelectedItem.ToString()));
+                                Log("Исследование " + listBox_Queue.SelectedItem.ToString() + " начато!");
+                                // Удаляем из очереди т.к. уже исследуем
+                                listBox_Queue.Items.RemoveAt(0);
+                                
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine("\n======| EX INFO |======");
+                                Log(ex.ToString());
+                                Console.WriteLine("======| ======= |======\n");
+                            }
+                        }
+                        else
+                        {
+                            Log("Не хватает очков исследований!");
+                            listBox_Queue.Items.Clear(); // Чистим, дабы избежать спама в логи
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("\n======| EX INFO |======");
+                    Log(ex.ToString());
+                    Console.WriteLine("======| ======= |======\n");
+                }
+                Thread.Sleep(60 * 1000); // 60 sec
+            }
+        }
+        
         public void AutoLoot()
         {
             Log("Поток автолута создан!");
@@ -114,11 +167,11 @@ namespace BotDLL
                     {
                         // Грязный хак. Новая карта не будет показана пока игра не будет перезапущена - каллбека то нету
                         XmlRpcCardsProvider.CreateForEndpoint(URLs.ProfileProtocol, URLs.ProfileServerAddressCards, URLs.ProfileServerPort, URLs.ProfileCardPath).getFreeCard(new XmlRpcCardsRequest(RemoteServices.Instance.UserGuid.ToString().Replace("-", "")), null, null);
-                        // Wrong next time cause info about it not loaded
+                        // Wrong next time cause info about it not loaded. Cause callback is broken
+                        // Не верное следующее время лута, т.к. новое не загружено - каллбека нет.
+                        // Фактически одноразовый автолут, лол
                         Log("Карта полутана! Следующая через " + GameEngine.Instance.World.FreeCardInfo.timeUntilNextFreeCard());
                     }
-
-                    Thread.Sleep(60 * 1000); // 60 sec
                 }
                 catch (Exception ex)
                 {
@@ -126,6 +179,8 @@ namespace BotDLL
                     Console.WriteLine(ex);
                     Console.WriteLine("======| ======= |======\n");
                 }
+
+                Thread.Sleep(60 * 1000); // 60 sec
             }
         }
 
@@ -180,7 +235,6 @@ namespace BotDLL
                         Log("Повтор цикла торговли через " + Sleep + " секунд(ы) в " + DateTime.Now.AddSeconds(Sleep).ToString("HH:mm:ss"));
                         Console.WriteLine();
                     }
-                    Thread.Sleep(Sleep * 1000); // Спим, чтобы не спамить. Так меньше палева.
                 }
                 catch (Exception ex)
                 {
@@ -188,7 +242,16 @@ namespace BotDLL
                     Console.WriteLine(ex);
                     Console.WriteLine("======| ======= |======\n");
                 }
+
+                Thread.Sleep(Sleep * 1000); // Спим, чтобы не спамить. Так меньше палева.
             }
+        }
+
+        public void ResearchInit()
+        {
+            Researches = new string[listBox_ResearchList.Items.Count];
+            for (int i = 0; i < Researches.Length; i++)
+                Researches[i] = listBox_ResearchList.Items[i].ToString();
         }
 
         private void listBox_ResList_SelectedIndexChanged(object sender, EventArgs e)
@@ -239,7 +302,7 @@ namespace BotDLL
                 case 29:
                 case 30:
                 case 31:
-                case 32: textBox_ResCount.Text = "5"; // 32 may be not valid
+                case 32: textBox_ResCount.Text = "5"; // 32 may be not valid (Catapults)
                     break;
             }
         }
@@ -254,16 +317,17 @@ namespace BotDLL
             try
             {
                 TradeThread.Abort();
-            }
-            catch
-            {}
+            } catch { }
 
             try
             {
                 AutoLootThread.Abort();
-            }
-            catch
-            {}
+            } catch { }
+
+            try
+            {
+                ResearchThread.Abort();
+            } catch { }
         }
 
         private void button_MapEditing_Click(object sender, EventArgs e) // Only visual
@@ -370,7 +434,7 @@ namespace BotDLL
 
         private void listBox_ResearchList_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            listBox_Queue.Items.Add(listBox_ResearchList.SelectedItem);
         }
 
         private void button_FreeCardAutoLoot_Click(object sender, EventArgs e)
@@ -394,6 +458,15 @@ namespace BotDLL
                 Console.WriteLine(ex);
                 Console.WriteLine("======| ======= |======\n");
             }
+        }
+
+        private void listBox_Queue_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                // Here is exception. May be recursive remove items. Dont know how to fix. 
+                listBox_Queue.Items.RemoveAt(listBox_Queue.SelectedIndex);
+            } catch { }
         }
     }
 }

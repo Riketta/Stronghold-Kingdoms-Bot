@@ -47,6 +47,9 @@ namespace BotDLL
             this.listBox_ResearchList = new System.Windows.Forms.ListBox();
             this.listBox_Queue = new System.Windows.Forms.ListBox();
             this.button_FreeCardAutoLoot = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBox_CurrentResearch = new System.Windows.Forms.TextBox();
+            this.button_CancelResearch = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox_ResList
@@ -291,6 +294,7 @@ namespace BotDLL
             this.listBox_Queue.Name = "listBox_Queue";
             this.listBox_Queue.Size = new System.Drawing.Size(235, 69);
             this.listBox_Queue.TabIndex = 14;
+            this.listBox_Queue.SelectedIndexChanged += new System.EventHandler(this.listBox_Queue_SelectedIndexChanged);
             // 
             // button_FreeCardAutoLoot
             // 
@@ -302,11 +306,41 @@ namespace BotDLL
             this.button_FreeCardAutoLoot.UseVisualStyleBackColor = true;
             this.button_FreeCardAutoLoot.Click += new System.EventHandler(this.button_FreeCardAutoLoot_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(92, 40);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(130, 13);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "Текущее исследование:";
+            // 
+            // textBox_CurrentResearch
+            // 
+            this.textBox_CurrentResearch.Location = new System.Drawing.Point(228, 37);
+            this.textBox_CurrentResearch.Name = "textBox_CurrentResearch";
+            this.textBox_CurrentResearch.ReadOnly = true;
+            this.textBox_CurrentResearch.Size = new System.Drawing.Size(154, 20);
+            this.textBox_CurrentResearch.TabIndex = 17;
+            this.textBox_CurrentResearch.Text = "None";
+            // 
+            // button_CancelResearch
+            // 
+            this.button_CancelResearch.Location = new System.Drawing.Point(388, 35);
+            this.button_CancelResearch.Name = "button_CancelResearch";
+            this.button_CancelResearch.Size = new System.Drawing.Size(75, 23);
+            this.button_CancelResearch.TabIndex = 18;
+            this.button_CancelResearch.Text = "Прервать";
+            this.button_CancelResearch.UseVisualStyleBackColor = true;
+            // 
             // BotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(704, 381);
+            this.Controls.Add(this.button_CancelResearch);
+            this.Controls.Add(this.textBox_CurrentResearch);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.button_FreeCardAutoLoot);
             this.Controls.Add(this.listBox_Queue);
             this.Controls.Add(this.listBox_ResearchList);
@@ -350,5 +384,8 @@ namespace BotDLL
         private System.Windows.Forms.ListBox listBox_ResearchList;
         private System.Windows.Forms.ListBox listBox_Queue;
         private System.Windows.Forms.Button button_FreeCardAutoLoot;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBox_CurrentResearch;
+        private System.Windows.Forms.Button button_CancelResearch;
     }
 }

@@ -16,6 +16,9 @@ using System.Windows.Forms;
 
 /*
  * TODO:
+ * Сохранение (сериализация) мира - скачивание в xml
+ * Автопокупка ресерч поинтов
+ * Автолвлап
  * Пулл исследований
  * Пулл построек, шаблоны деревень
  * Автоскаутинг
@@ -61,6 +64,7 @@ namespace BotDLL
                 Console.WriteLine("[Инициализация] " + Village.m_villageName + " - " + VillageID);
 
                 InterfaceMgr.Instance.selectVillage(VillageID);
+                GameEngine.Instance.GameDisplayMode = GameEngine.GameDisplays.DISPLAY_VILLAGE;
                 GameEngine.Instance.downloadCurrentVillage();
             }
             Console.WriteLine("======| ========== |======\n");
