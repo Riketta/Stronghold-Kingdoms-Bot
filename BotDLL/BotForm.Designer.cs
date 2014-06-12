@@ -50,6 +50,7 @@ namespace BotDLL
             this.label3 = new System.Windows.Forms.Label();
             this.textBox_CurrentResearch = new System.Windows.Forms.TextBox();
             this.button_CancelResearch = new System.Windows.Forms.Button();
+            this.checkBox_Parish = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // listBox_ResList
@@ -116,7 +117,7 @@ namespace BotDLL
             // 
             // button_MapEditing
             // 
-            this.button_MapEditing.Location = new System.Drawing.Point(383, 84);
+            this.button_MapEditing.Location = new System.Drawing.Point(388, 84);
             this.button_MapEditing.Name = "button_MapEditing";
             this.button_MapEditing.Size = new System.Drawing.Size(75, 23);
             this.button_MapEditing.TabIndex = 4;
@@ -128,7 +129,7 @@ namespace BotDLL
             // 
             this.richTextBox_In.Location = new System.Drawing.Point(92, 115);
             this.richTextBox_In.Name = "richTextBox_In";
-            this.richTextBox_In.Size = new System.Drawing.Size(366, 100);
+            this.richTextBox_In.Size = new System.Drawing.Size(371, 100);
             this.richTextBox_In.TabIndex = 5;
             this.richTextBox_In.Text = "";
             // 
@@ -136,7 +137,7 @@ namespace BotDLL
             // 
             this.button_Exec.Location = new System.Drawing.Point(92, 277);
             this.button_Exec.Name = "button_Exec";
-            this.button_Exec.Size = new System.Drawing.Size(366, 26);
+            this.button_Exec.Size = new System.Drawing.Size(371, 26);
             this.button_Exec.TabIndex = 6;
             this.button_Exec.Text = "Выполнить код";
             this.button_Exec.UseVisualStyleBackColor = true;
@@ -147,7 +148,7 @@ namespace BotDLL
             this.richTextBox_Out.Location = new System.Drawing.Point(92, 221);
             this.richTextBox_Out.Name = "richTextBox_Out";
             this.richTextBox_Out.ReadOnly = true;
-            this.richTextBox_Out.Size = new System.Drawing.Size(366, 50);
+            this.richTextBox_Out.Size = new System.Drawing.Size(371, 50);
             this.richTextBox_Out.TabIndex = 7;
             this.richTextBox_Out.Text = "";
             // 
@@ -156,7 +157,7 @@ namespace BotDLL
             this.richTextBox_Log.Location = new System.Drawing.Point(92, 308);
             this.richTextBox_Log.Name = "richTextBox_Log";
             this.richTextBox_Log.ReadOnly = true;
-            this.richTextBox_Log.Size = new System.Drawing.Size(366, 70);
+            this.richTextBox_Log.Size = new System.Drawing.Size(371, 70);
             this.richTextBox_Log.TabIndex = 8;
             this.richTextBox_Log.Text = "";
             // 
@@ -179,7 +180,7 @@ namespace BotDLL
             // 
             // button_Admin
             // 
-            this.button_Admin.Location = new System.Drawing.Point(302, 84);
+            this.button_Admin.Location = new System.Drawing.Point(307, 84);
             this.button_Admin.Name = "button_Admin";
             this.button_Admin.Size = new System.Drawing.Size(75, 23);
             this.button_Admin.TabIndex = 11;
@@ -309,7 +310,7 @@ namespace BotDLL
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(92, 40);
+            this.label3.Location = new System.Drawing.Point(92, 60);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(130, 13);
             this.label3.TabIndex = 16;
@@ -317,7 +318,7 @@ namespace BotDLL
             // 
             // textBox_CurrentResearch
             // 
-            this.textBox_CurrentResearch.Location = new System.Drawing.Point(228, 37);
+            this.textBox_CurrentResearch.Location = new System.Drawing.Point(228, 57);
             this.textBox_CurrentResearch.Name = "textBox_CurrentResearch";
             this.textBox_CurrentResearch.ReadOnly = true;
             this.textBox_CurrentResearch.Size = new System.Drawing.Size(154, 20);
@@ -326,18 +327,31 @@ namespace BotDLL
             // 
             // button_CancelResearch
             // 
-            this.button_CancelResearch.Location = new System.Drawing.Point(388, 35);
+            this.button_CancelResearch.Location = new System.Drawing.Point(388, 55);
             this.button_CancelResearch.Name = "button_CancelResearch";
             this.button_CancelResearch.Size = new System.Drawing.Size(75, 23);
             this.button_CancelResearch.TabIndex = 18;
             this.button_CancelResearch.Text = "Прервать";
             this.button_CancelResearch.UseVisualStyleBackColor = true;
             // 
+            // checkBox_Parish
+            // 
+            this.checkBox_Parish.AutoSize = true;
+            this.checkBox_Parish.Checked = true;
+            this.checkBox_Parish.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox_Parish.Location = new System.Drawing.Point(95, 32);
+            this.checkBox_Parish.Name = "checkBox_Parish";
+            this.checkBox_Parish.Size = new System.Drawing.Size(144, 17);
+            this.checkBox_Parish.TabIndex = 19;
+            this.checkBox_Parish.Text = "Торговать со столицей";
+            this.checkBox_Parish.UseVisualStyleBackColor = true;
+            // 
             // BotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(704, 381);
+            this.Controls.Add(this.checkBox_Parish);
             this.Controls.Add(this.button_CancelResearch);
             this.Controls.Add(this.textBox_CurrentResearch);
             this.Controls.Add(this.label3);
@@ -387,5 +401,6 @@ namespace BotDLL
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox_CurrentResearch;
         private System.Windows.Forms.Button button_CancelResearch;
+        private System.Windows.Forms.CheckBox checkBox_Parish;
     }
 }

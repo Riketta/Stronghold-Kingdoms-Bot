@@ -128,7 +128,6 @@ namespace BotDLL
                                 Log("Исследование " + listBox_Queue.SelectedItem.ToString() + " начато!");
                                 // Удаляем из очереди т.к. уже исследуем
                                 listBox_Queue.Items.RemoveAt(0);
-                                
                             }
                             catch (Exception ex)
                             {
@@ -222,8 +221,10 @@ namespace BotDLL
 
                                 if (MerchantsCount > 0) // Если трейдеры дома есть
                                 {
-                                    TargetID = GameEngine.Instance.World.getRegionCapitalVillage(Village.regionID); // Торгуем с регионом, временно
-                                    textBox_TradeTargetID.Text = TargetID.ToString();
+                                    TargetID = (checkBox_Parish.Checked ? 
+                                        GameEngine.Instance.World.getRegionCapitalVillage(Village.regionID) : 
+                                        int.Parse(textBox_TradeTargetID.Text));
+                                    //textBox_TradeTargetID.Text = TargetID.ToString();
 
                                     // Вызываем высокоуровневую функцию торговли с рядом каллбеков
                                     GameEngine.Instance.getVillage(VillageID).stockExchangeTrade(TargetID, ResID, MerchantsCount * SendWithOne, false);
