@@ -32,7 +32,7 @@ namespace BotDLL
 
         Thread ResearchThread;
 
-        string BotStartTime = "";
+        string BotStartTime;
 
         Object Lock = new object();
 
@@ -117,23 +117,31 @@ namespace BotDLL
                 {
                     if (GameEngine.Instance.World.isDownloadComplete() && listBox_Queue.Items.Count > 0)
                     {
+                        // If we have points
+                        // Если есть очки исследований
                         if (GameEngine.Instance.World.userResearchData.research_points > 0)
                         {
-                            TimeSpan Span = DateTime.Now.Subtract(GameEngine.Instance.World.userResearchData.research_completionTime);
-                            Console.WriteLine(Span.TotalSeconds);
+                            // No researching in current time
+                            // Если исследования в текущий момент не производятся
+                            if (GameEngine.Instance.World.userResearchData.researchingType == -1)
+                            {
+                                try
+                                {
+                                    GameEngine.Instance.World.doResearch(GetItemID(listBox_Queue.Items[0].ToString()));
 
-                            try
-                            {
-                                GameEngine.Instance.World.doResearch(GetItemID(listBox_Queue.SelectedItem.ToString()));
-                                Log("Исследование " + listBox_Queue.SelectedItem.ToString() + " начато!");
-                                // Удаляем из очереди т.к. уже исследуем
-                                listBox_Queue.Items.RemoveAt(0);
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine("\n======| EX INFO |======");
-                                Log(ex.ToString());
-                                Console.WriteLine("======| ======= |======\n");
+                                    TimeSpan Span = GameEngine.Instance.World.userResearchData.calcResearchTime(GameEngine.Instance.World.userResearchData.research_pointCount, GameEngine.Instance.World.UserCardData, GameEngine.Instance.LocalWorldData);
+                                    Log("Исследование " + listBox_Queue.Items[0].ToString() + " начато!\nСледующее через " + Span + " (" + DateTime.Now.Add(Span) + ")");
+
+                                    // Remove first item from queue cause it already in process
+                                    // Удаляем первое исследование из очереди т.к. уже исследуем
+                                    listBox_Queue.Items.RemoveAt(0);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine("\n======| EX INFO |======");
+                                    Log(ex.ToString());
+                                    Console.WriteLine("======| ======= |======\n");
+                                }
                             }
                         }
                         else
@@ -149,7 +157,7 @@ namespace BotDLL
                     Log(ex.ToString());
                     Console.WriteLine("======| ======= |======\n");
                 }
-                Thread.Sleep(60 * 1000); // 60 sec
+                Thread.Sleep(30 * 1000); // 30 sec
             }
         }
         
@@ -166,6 +174,7 @@ namespace BotDLL
                     {
                         // Грязный хак. Новая карта не будет показана пока игра не будет перезапущена - каллбека то нету
                         XmlRpcCardsProvider.CreateForEndpoint(URLs.ProfileProtocol, URLs.ProfileServerAddressCards, URLs.ProfileServerPort, URLs.ProfileCardPath).getFreeCard(new XmlRpcCardsRequest(RemoteServices.Instance.UserGuid.ToString().Replace("-", "")), null, null);
+                        
                         // Wrong next time cause info about it not loaded. Cause callback is broken
                         // Не верное следующее время лута, т.к. новое не загружено - каллбека нет.
                         // Фактически одноразовый автолут, лол
