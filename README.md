@@ -1,6 +1,6 @@
 Stronghold Kingdoms Bot
 =======================
-<h2> CHECK https://github.com/Riketta/Stronghold-Kingdoms</h2>
+<h2> CHECK http://shkbot.xyz/</h2>
 
 Game version 2.0.18.6.
 <hr>
